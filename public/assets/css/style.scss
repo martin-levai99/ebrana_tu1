@@ -10,6 +10,14 @@ section.post-item-list {
         &.small {
             height: 200px;
         }
+    }   
+}
+
+
+// Post single 
+article.post-single {
+    img.thumb {
+        object-fit: cover;
+        height: 300px;
     }
-    
 }

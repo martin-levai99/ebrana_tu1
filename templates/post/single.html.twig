@@ -2,27 +2,61 @@
 
 {% block body %}
 
-<article>
+    {# Edit & Delete buttons #}
+    {% if app.user %}
+        <div class="row mb-4">
+            <div class="col-12 d-flex justify-content-end">
+                <a class="btn btn-sm btn-outline-primary" href="/blog/upravit-clanek/{{post.id}}">
+                    Upravit článek
+                </a>
 
-    <h1>
-        {{post.title}}
-    </h1>
+                <a class="btn btn-sm btn-danger ms-3" href="/blog/smazat-clanek/{{post.id}}">
+                    Smazat článek
+                </a>
+            </div>
+        </div>
+    {% endif %}
 
-    <div>
-        {{post.excerpt}}
-    </div>
+    {# Article itself #}
+    <article class="container px-0 post-single pb-5">
+        
+        {# About #}
+        <div class="row">
 
-</article>
+            {# Headline, metadata #}
+            <div class="col-12 col-md-6 d-flex flex-wrap">
+                <h1>
+                    {{post.title}}
+                </h1>
+
+                <div >
+                    {{post.excerpt|raw }}
+                </div>
+
+                <div class="metadata mt-auto d-flex justify-content-around">
+
+                    {# Categories #}
 
 
-<a href="/blog/upravit-clanek/{{post.id}}">
-    Upravit článek
-</a>
+                    {# Publish date #}
+                    {{post.publishDate|date("d. m. Y")}}
+                </div>
+            </div>
 
-<p>
-    <a href="/blog/smazat-clanek/{{post.id}}">
-        Smazat článek
-    </a>
-</p>
+
+            {# Thumbnail #}
+            <div class="col-12 col-md-6">
+                <img class="thumb w-100" src="{{post.thumbnail}}" alt="{{post.title}}">
+            </div>
+
+        </div>
+
+        {# Content #}
+        <div class="row mt-5 pt-4">
+            <div class="col-12 col-md-8 offset-md-1">
+                {{post.content|raw }}
+            </div>
+        </div>
+    </article>
     
 {% endblock %}

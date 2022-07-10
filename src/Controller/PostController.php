@@ -128,7 +128,7 @@ class PostController extends AbstractController {
 
                     $post->setThumbnail("/uploads/" . $newFileName);
                     $this->em->flush();
-                    return $this->redirectToRoute("post_index");
+                    return $this->redirectToRoute("post_single", ["id" => $post->getId()]);
                 }
             }
             else {
@@ -138,7 +138,7 @@ class PostController extends AbstractController {
                 $post->setPublishDate($form->get("publishDate")->getData());
 
                 $this->em->flush();
-                return $this->redirectToRoute("post_index");
+                return $this->redirectToRoute("post_single", ["id" => $post->getId()]);
             }
 
         }

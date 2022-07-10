@@ -7,4 +7,10 @@ section.post-item-list img.big {
 }
 section.post-item-list img.small {
   height: 200px;
+}
+
+article.post-single img.thumb {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 300px;
 }/*# sourceMappingURL=style.css.map */

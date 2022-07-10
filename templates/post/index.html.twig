@@ -1,33 +1,42 @@
 {% extends "base.html.twig" %}
 
+{% block title %}
+    Magazín
+{% endblock %}
+
 
 {% block body %}
 
-    {% if app.user %}
-        <div>
-            <a href="/blog/novy-clanek">
-                Nový článek
-            </a>
-        </div>
-    {% endif %}
-
-    {% for post in posts %}
-        <div>
-
-            <img src="{{post.thumbnail}}" alt="{{post.title}}">
-
-            <h1>
-                <a href="/blog/{{post.id}}">
-                    {{post.title}}
-                </a>
+    {# Title #}
+    <div class="row mb-5">
+        <div class="col-12 text-center ">
+            <h1 class=" border-bottom d-inline-block pb-2">
+                Magazín - výpis článků
             </h1>
 
-            <p>
-                {{post.excerpt}}
-            </p>
-
-
+            {% if app.user %}
+                <div>
+                    <a class="btn btn-sm btn-primary mt-3" href="/blog/novy-clanek">
+                        Nový článek
+                    </a>
+                </div>
+            {% endif %}
         </div>
-    {% endfor %}
+    </div>
+
+
+    {# Newest main 2 posts #}
+    {{ render(controller(
+        'App\\Controller\\PostController::itemList', 
+        { 'max': 2 }
+    )) }}
+
+
+    {# Next 4 newest posts #}
+    {{ render(controller(
+        'App\\Controller\\PostController::itemList', 
+        { 'max': 100, "offset": 2, "size": "small" }
+    )) }}
+
 
 {% endblock %}

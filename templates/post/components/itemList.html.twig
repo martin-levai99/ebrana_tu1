@@ -5,12 +5,11 @@
                 <article>
                     <a href="/blog/{{post.id}}" class="text-dark text-decoration-none">
                         <img class="w-100 {{size}}" src="{{post.thumbnail}}" alt="{{post.title}}" loading="lazy">
-                        <h2 class="my-2">
+                        <h2 class="my-2 h3">
                             {{post.title}}
                         </h2>
-                        <p>
-                            {{post.excerpt}}
-                        </p>
+                        
+                        {{post.excerpt|raw}}
                     </a>
                 </article>
             </div>
