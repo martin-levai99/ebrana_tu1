@@ -11,8 +11,6 @@ class IndexController extends AbstractController
     #[Route("/", methods: ["GET"], name: "index")]
     public function index(): Response
     {
-        return $this->render('index.html.twig', [
-            'number' => 24,
-        ]);
+        return $this->render('index.html.twig');
     }
 }
