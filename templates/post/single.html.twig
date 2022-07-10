@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<article>
+
+    <h1>
+        {{post.title}}
+    </h1>
+
+    <div>
+        {{post.excerpt}}
+    </div>
+
+</article>
+
+
+<a href="/blog/upravit-clanek/{{post.id}}">
+    Upravit článek
+</a>
+
+<p>
+    <a href="/blog/smazat-clanek/{{post.id}}">
+        Smazat článek
+    </a>
+</p>
+    
+{% endblock %}
