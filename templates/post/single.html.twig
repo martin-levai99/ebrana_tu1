@@ -1,5 +1,9 @@
 {% extends "base.html.twig" %}
 
+{% block title %}
+    {{post.title}}
+{% endblock %}
+
 {% block body %}
 
     {# Edit & Delete buttons #}
@@ -66,6 +70,69 @@
         <div class="row mt-5 pt-4">
             <div class="col-12 col-md-8 offset-md-1">
                 {{post.content|raw }}
+            </div>
+        </div>
+
+        {# Comments #}
+        <div class="row mt-5 pt-4">
+            <div class="col-12 col-md-8 offset-md-1">
+
+                {# List of Comments #}
+                <div class="comment-list mb-4">
+                    <h2 class="h4 mb-4">
+                        Komentáře
+                    </h2>
+
+                    {% for com in comments %}
+                        <div class="comment border mb-3 p-3">
+
+                            {# Header #}
+                            <div class="d-flex flex-wrap justify-content-between border-bottom">
+                                <h3 class="h6 fw-bold mb-0">
+                                    {{com.subject}}
+                                </h3>
+                                <p class="mb-0">
+                                    Od: 
+                                    {{com.email}}
+                                </p>
+                            </div>
+
+                            {# Content #}
+                            <div class="mt-3">
+                                {{com.content|raw}}
+                            </div>
+
+                            {# Delete buttons #}
+                            {% if app.user %}
+                                <div class="text-end">
+                                    <a class="text-danger text-sm" href="/komentar/smazat/{{com.id}}">
+                                        <small>
+                                             Smazat komentář
+                                        </small>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {# Comment Form #}
+                <div class="cooment-form pt-5">
+                    <h2 class="h4 mb-4">
+                        Přidat komentář
+                    </h2>
+
+                    {{form_start(commentForm)}}
+
+                        {{form_widget(commentForm)}}
+
+                        <button class="btn btn-sm btn-success mt-3" >
+                            Okomentovat
+                        </button>
+
+                    {{form_end(commentForm)}}
+                </div>
             </div>
         </div>
     </article>

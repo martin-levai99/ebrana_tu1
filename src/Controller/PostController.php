@@ -4,13 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\Category;
+use App\Entity\Comment;
+
 use App\Form\PostFormType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Form\CommentFormType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
 class PostController extends AbstractController {
@@ -150,12 +155,46 @@ class PostController extends AbstractController {
     }
 
 
-    #[Route("/blog/{id}", methods: ["GET"], name: "post_single")]
-    public function single($id): Response {
+    #[Route("/blog/{id}", methods: ["GET", "POST"], name: "post_single")]
+    public function single($id, Request $request): Response {
         $post = $this->em->getRepository(Post::class)->find($id);
+
+        // Handle comment form
+        $comment = new Comment();
+        $commentForm = $this->createForm(CommentFormType::class, $comment);
+        $commentForm->handleRequest($request);
+
+        if($commentForm->isSubmitted() && $commentForm->isValid()) {
+
+            // Add post_id relationship and current publish datetime
+            $newComment = $commentForm->getData();
+            $newComment->setPost($post);
+            $curr_time = new \DateTime("now");
+            $newComment->setPublishDateTime($curr_time);
+
+            // Update
+            $this->em->persist($newComment);
+            $this->em->persist($post);
+            $this->em->flush();
+
+            return $this->redirectToRoute("post_single", ["id" => $id]);
+        }
+
+
+        // Get comments for related to this post
+        $comments = $this->em->getRepository(Comment::class)->findBy(
+            ["post" => $id],
+            ['publish_datetime' => 'DESC'],
+            100 
+        );
+
         
+        
+
         return $this->render('post/single.html.twig', [
-            "post" => $post
+            "post" => $post,
+            "commentForm" => $commentForm->createView(),
+            "comments" => $comments
         ]);
     }
 
