@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\Category;
 use App\Form\PostFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,18 +90,7 @@ class PostController extends AbstractController {
         return $this->render('post/create.html.twig', [
             "form" => $form->createView()
         ]);
-    }
-
-
-    #[Route("/blog/{id}", methods: ["GET"], name: "post_single")]
-    public function single($id): Response {
-        $post = $this->em->getRepository(Post::class)->find($id);
-        
-        return $this->render('post/single.html.twig', [
-            "post" => $post
-        ]);
-    }
-
+    } 
 
     #[Route("/blog/upravit-clanek/{id}", methods: ["GET", "POST"], name: "post_edit")]
     public function edit($id, Request $request): Response {
@@ -160,16 +150,36 @@ class PostController extends AbstractController {
     }
 
 
-
-    public function itemList($max = 4, $offset = 0, $size = "big"): Response {
-
-        $posts = $this->em->getRepository(Post::class)->findBy(
-            array(),
-            array('publishDate' => 'DESC'),
-            $max,
-            $offset
-        );
+    #[Route("/blog/{id}", methods: ["GET"], name: "post_single")]
+    public function single($id): Response {
+        $post = $this->em->getRepository(Post::class)->find($id);
         
+        return $this->render('post/single.html.twig', [
+            "post" => $post
+        ]);
+    }
+
+
+    public function itemList($max = 4, $offset = 0, $size = "big", $cat_id = null): Response {
+        // Prepare POST repository
+        $post_repo = $this->em->getRepository(Post::class);
+
+
+        if($cat_id != null) {
+            // Get posts related to $cat_id
+            $cat_object = $this->em->getRepository(Category::class)->find($cat_id);
+            $posts = $post_repo->getPostsByCategory($cat_object, $max);
+        }
+        else {
+            // Get posts
+            $posts = $post_repo->findBy(
+                [],
+                ['publishDate' => 'DESC'],
+                $max,
+                $offset
+            );
+        }
+
         return $this->render('post/components/itemList.html.twig', [
             "posts" => $posts,
             "size" => $size

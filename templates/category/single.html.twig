@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Detail kategorie
+{% endblock %}
+
+
+{% block body %}
+
+    {# Title #}
+    <div class="row mb-5">
+        <div class="col-12 border-bottom d-flex flex-wrap justify-content-between align-items-end">
+            <div>
+                <h1 class="h2">
+                    Kategorie - {{cat.title}}
+                </h1>
+            
+                <div>
+                    {{cat.description|raw}}
+                </div>
+            </div>
+
+
+            {% if app.user %}
+                <div class="mb-2">
+                    <a class="btn btn-sm btn-outline-primary me-2" href="/kategorie/upravit-kategorii/{{cat.id}}">
+                        Upravit kategorii
+                    </a>
+
+                    <a class="btn btn-sm btn-primary me-2" href="/kategorie/nova-kategorie">
+                        Nová kategorie
+                    </a>
+
+                    <a class="btn btn-sm btn-danger" href="/kategorie/smazat-kategorii/{{cat.id}}">
+                        Smazat kategorie
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+    {# Next 4 newest posts #}
+    {{ render(controller(
+        'App\\Controller\\PostController::itemList', 
+        { 'max': 100, "size": "small", "cat_id": cat.id }
+    )) }}
+
+    
+{% endblock %}

@@ -21,6 +21,9 @@ class Category
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'categories')]
     private $posts;
 
+    #[ORM\Column(type: 'string', length: 999, nullable: true)]
+    private $description;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -66,6 +69,18 @@ class Category
         if ($this->posts->removeElement($post)) {
             $post->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

@@ -28,4 +28,26 @@
         'App\\Controller\\PostController::itemList', 
         { 'max': 4, "offset": 2, "size": "small" }
     )) }}
+
+
+    {# List of categories with 4 newest posts of the category  #}
+    {% for cat in categories %}
+        <div class="row pt-4 mt-5 {{loop.index % 2 == 1 ? "bg-light" : "" }} ">
+            <div class="col-12 pb-2 mb-4 d-flex flex-wrap justify-content-between align-items-end border-bottom">
+                <h2 class="h3 mb-0">
+                    {{cat.title}}
+                </h2>
+
+                <a href="/kategorie/{{cat.id}}" class="btn btn-sm btn-outline-success mb-1">
+                    Detail kategorie
+                </a>
+            </div>
+
+            {# 4 newest posts of current category #}
+            {{ render(controller(
+                'App\\Controller\\PostController::itemList', 
+                { 'max': 4, "size": "small", "cat_id": cat.id }
+            )) }}
+        </div>
+    {% endfor %}
 {% endblock %}

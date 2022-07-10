@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<h1 class="mb-4">
+    Nová kategorie
+</h1>
+
+{{form_start(form)}}
+
+    {{form_widget(form)}}
+
+    <button class="btn btn-sm btn-success mt-3" >
+        Vytvořit kategorii
+    </button>
+
+{{form_end(form)}}
+    
+{% endblock %}

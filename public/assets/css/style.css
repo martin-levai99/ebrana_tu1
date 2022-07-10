@@ -13,4 +13,9 @@ article.post-single img.thumb {
   -o-object-fit: cover;
      object-fit: cover;
   height: 300px;
+}
+
+form input[type=checkbox] {
+  margin-left: 15px;
+  margin-right: 5px;
 }/*# sourceMappingURL=style.css.map */

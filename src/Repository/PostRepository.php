@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,16 @@ class PostRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    
+
+    public function getPostsByCategory(Category $cat, $max = 4) {
+        $qb = $this->createQueryBuilder("p")
+            ->where(':categories MEMBER OF p.categories')
+            ->setParameters(array('categories' => $cat))
+            ->setMaxResults( $max );
+        ;
+        return $qb->getQuery()->getResult();
     }
 
 //    /**

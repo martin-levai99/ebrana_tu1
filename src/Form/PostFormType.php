@@ -3,14 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Post;
-use Doctrine\DBAL\Types\StringType;
+use App\Entity\Category;
+
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\FormBuilderInterface;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class PostFormType extends AbstractType
@@ -39,7 +41,12 @@ class PostFormType extends AbstractType
                     "class" => "form-control mb-3"
                 ]
             ])
-            // ->add('categories')
+            ->add('categories', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'title',
+                'multiple' => true,
+                'expanded' => true
+            ])
         ;
     }
 

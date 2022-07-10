@@ -2,16 +2,36 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-class MenuController extends AbstractController
-{
-    public function itemList(): Response {
-        // Get categories
+class MenuController extends AbstractController {
 
-        // Setup menu items
+    private $em;
+
+    public function __construct(EntityManagerInterface $em) {
+        $this->em = $em;
+    }
+
+
+    public function itemList(): Response {
+
+        // Get categories
+        $categories = $this->em->getRepository(Category::class)->findAll();
+
+        // Set up category links
+        $category_links = [];
+        foreach ($categories as $cat) {
+            $category_links[] = [
+                "title" => $cat->getTitle(),
+                "link" => "/kategorie/" . $cat->getId()
+            ];
+        }
+
+        // Set up menu items
         $menuItems = [
             [
                 "title" => "Domů",
@@ -24,21 +44,7 @@ class MenuController extends AbstractController
             [
                 "title" => "Kategorie",
                 "link" => "#",
-                "children" => [
-                    [
-                        "title" => "kategorie 1",
-                        "link" => "/"
-                    ], 
-                    [
-                        "title" => "kategorie 2",
-                        "link" => "/"
-                    ],
-                    [
-                        "title" => "kategorie 3",
-                        "link" => "/"
-                    ],
-                ]
-
+                "children" => $category_links
             ]
         ];
 

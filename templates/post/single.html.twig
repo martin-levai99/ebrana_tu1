@@ -24,7 +24,7 @@
         <div class="row">
 
             {# Headline, metadata #}
-            <div class="col-12 col-md-6 d-flex flex-wrap">
+            <div class="col-12 col-md-6 col-xl-5 d-flex flex-wrap">
                 <h1>
                     {{post.title}}
                 </h1>
@@ -33,19 +33,30 @@
                     {{post.excerpt|raw }}
                 </div>
 
-                <div class="metadata mt-auto d-flex justify-content-around">
-
-                    {# Categories #}
+                <div class="metadata mt-auto w-100 d-flex align-items-end justify-content-between">
 
 
                     {# Publish date #}
-                    {{post.publishDate|date("d. m. Y")}}
+                    <p class="mb-0">
+                        {{post.publishDate|date("d. m. Y")}}
+                    </p>
+
+                    {# Categories #}
+                    <div>
+                        {% for cat in post.categories %}
+                            <a href="/kategorie/{{cat.id}}" class="btn btn-sm btn-outline-success">
+                                {{cat.title}}
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                    
                 </div>
             </div>
 
 
             {# Thumbnail #}
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 offset-xl-1">
                 <img class="thumb w-100" src="{{post.thumbnail}}" alt="{{post.title}}">
             </div>
 
