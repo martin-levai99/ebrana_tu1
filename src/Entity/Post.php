@@ -36,7 +36,6 @@ class Post
     private $publishDate;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank]
     private $thumbnail;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'posts')]

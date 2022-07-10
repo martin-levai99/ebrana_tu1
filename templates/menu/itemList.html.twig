@@ -1,0 +1,29 @@
+{% for mi in menuItems %}
+
+    {# Showe dropdown menu if children items are defined #}
+    {% if mi.children is defined %}
+        <li class="nav-item mx-3 dropdown" >
+            <a class="nav-link dropdown-toggle" href="#" id="menu-dropdown-{{loop.index}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{mi.title}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="menu-dropdown-{{loop.index}}">
+                {% for chi in mi.children %}
+                    <li>
+                        <a class="dropdown-item" href="{{chi.link}}">
+                            {{chi.title}}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+
+    {# Show regular link #}
+    {% else %}
+        <li class="nav-item mx-3" >
+            <a class="nav-link" href="{{mi.link}}">
+                {{mi.title}}
+            </a>
+        </li>
+    {% endif %}
+    
+{% endfor %}

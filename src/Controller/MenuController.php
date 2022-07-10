@@ -42,7 +42,7 @@ class MenuController extends AbstractController
             ]
         ];
 
-        return $this->render('menu/itemsList.html.twig', [
+        return $this->render('menu/itemList.html.twig', [
             "menuItems" => $menuItems
         ]);
 

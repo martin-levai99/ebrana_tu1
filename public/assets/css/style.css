@@ -1,0 +1,10 @@
+section.post-item-list img {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+section.post-item-list img.big {
+  height: 300px;
+}
+section.post-item-list img.small {
+  height: 200px;
+}/*# sourceMappingURL=style.css.map */

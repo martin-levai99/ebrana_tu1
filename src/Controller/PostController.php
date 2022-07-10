@@ -56,7 +56,6 @@ class PostController extends AbstractController {
         ]);
     }
 
-
     #[Route("/blog/novy-clanek", methods: ["GET", "POST"], name: "post_create")]
     public function create(Request $request): Response {
         $post = new Post();
@@ -158,5 +157,22 @@ class PostController extends AbstractController {
         $this->em->flush();
 
         return $this->redirectToRoute("post_index");
+    }
+
+
+
+    public function itemList($max = 4, $offset = 0, $size = "big"): Response {
+
+        $posts = $this->em->getRepository(Post::class)->findBy(
+            array(),
+            array('publishDate' => 'DESC'),
+            $max,
+            $offset
+        );
+        
+        return $this->render('post/components/itemList.html.twig', [
+            "posts" => $posts,
+            "size" => $size
+        ]);
     }
 }

@@ -1,0 +1,15 @@
+// Section post item list
+section.post-item-list {
+    img {
+        object-fit: cover;
+        
+        &.big {
+            height: 300px;
+        }
+
+        &.small {
+            height: 200px;
+        }
+    }
+    
+}

@@ -20,7 +20,7 @@ class PostFormType extends AbstractType
             ->add('content', TextareaType::class)
             ->add('publishDate', DateType::class)
             ->add('thumbnail', FileType::class, [
-                "required" => true,
+                "required" => false,
                 "mapped" => false
             ])
             // ->add('categories')
