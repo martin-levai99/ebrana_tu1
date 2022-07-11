@@ -26,23 +26,23 @@
 
                         {# Register button #}
                         {% if app.user == null%}
-                            <li class="nav-item ms-4 d-flex align-items-center">
-                                <a class="btn btn-sm btn-success " href="/register">
+                            <li class="nav-item ms-lg-4 d-flex align-items-center">
+                                <a class="btn btn-sm btn-success mb-2 mb-lg-0 mt-3 mt-lg-0" href="/register">
                                     Registrovat
                                 </a>
                             </li>
                         {% endif %}
 
                         {# Login/Logout button #}
-                        <li class="nav-item ms-3 d-flex align-items-center">
-                            <a class="btn btn-sm btn-outline-success " href="/{{app.user ? "logout" : "login" }}">
+                        <li class="nav-item ms-lg-3 d-flex align-items-center">
+                            <a class="btn btn-sm btn-outline-success mb-2 mb-lg-0" href="/{{app.user ? "logout" : "login" }}">
                                 {{app.user ? "Odhlásit" : "Přihlásit" }}
                             </a>
                         </li>
 
                         {# Current user #}
                         {% if app.user %}
-                            <li class="nav-item ms-4 d-flex align-items-center text-success">
+                            <li class="nav-item ms-lg-4 d-flex align-items-center text-success">
                                 {{app.user.email}}
                             </li>
                         {% endif %}
