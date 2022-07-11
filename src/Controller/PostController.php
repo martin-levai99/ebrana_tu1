@@ -32,31 +32,6 @@ class PostController extends AbstractController {
 
         $repository = $this->em->getRepository(Post::class);
 
-        // Select * fron posts
-        // $posts = $repository->findAll();
-
-        // Select * fron posts where ID = 5
-        // $posts = $repository->find(5);
-
-        // Select * fron posts order by ID DESC
-        // $posts = $repository->findBy([],["id" => "DESC"]);
-
-        // Select * fron posts where ID = 7 AND title = "Článek 1"
-        // $posts = $repository->findOneBy(["id" => 7, "title" => "Článek 1"]);
-
-
-        // Select count() from posts
-        // $posts = $repository->count([]);
-
-        // Select count() from posts where id = 7
-        // $posts = $repository->count(["id" => 7]);
-
-        // Classname
-        // $posts = $repository->getClassname();
-
-        $posts = $repository->findAll();
-        // dd($posts);
-
         return $this->render('post/index.html.twig', [
             "posts" => $repository->findAll()
         ]);
@@ -67,6 +42,8 @@ class PostController extends AbstractController {
         $post = new Post();
         $form = $this->createForm(PostFormType::class, $post);
         $form->handleRequest($request);
+
+        // Handle form request
         if($form->isSubmitted() && $form->isValid()) {
             $newPost = $form->getData();
 
