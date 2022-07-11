@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -16,12 +17,27 @@ class Category
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(
+        message: "Pole nesmí být prázdné"
+    )]
+    #[Assert\Length(
+        min: 3, 
+        max: 255,
+        minMessage: 'Název musí mít alespoň {{ limit }} znaky',
+        maxMessage: 'Název nesmí být delší než {{ limit }} znaků'
+    )]
     private $title;
 
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'categories')]
     private $posts;
 
     #[ORM\Column(type: 'string', length: 999, nullable: true)]
+    #[Assert\Length(
+        min: 3, 
+        max: 999,
+        minMessage: 'Obsah musí mít alespoň {{ limit }} znaky',
+        maxMessage: 'Obsah nesmí být delší než {{ limit }} znaků'
+    )]
     private $description;
 
     public function __construct()

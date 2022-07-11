@@ -29,7 +29,7 @@
 
             {# Headline, metadata #}
             <div class="col-12 col-md-6 col-xl-5 d-flex flex-wrap">
-                <h1>
+                <h1 class="w-100">
                     {{post.title}}
                 </h1>
 
@@ -79,42 +79,45 @@
 
                 {# List of Comments #}
                 <div class="comment-list mb-4">
-                    <h2 class="h4 mb-4">
-                        Komentáře
-                    </h2>
+                    {% if comments %}
+                        <h2 class="h4 mb-4">
+                            Komentáře
+                        </h2>
+                        
+                        {% for com in comments %}
+                            <div class="comment border mb-3 p-3">
 
-                    {% for com in comments %}
-                        <div class="comment border mb-3 p-3">
-
-                            {# Header #}
-                            <div class="d-flex flex-wrap justify-content-between border-bottom">
-                                <h3 class="h6 fw-bold mb-0">
-                                    {{com.subject}}
-                                </h3>
-                                <p class="mb-0">
-                                    Od: 
-                                    {{com.email}}
-                                </p>
-                            </div>
-
-                            {# Content #}
-                            <div class="mt-3">
-                                {{com.content|raw}}
-                            </div>
-
-                            {# Delete buttons #}
-                            {% if app.user %}
-                                <div class="text-end">
-                                    <a class="text-danger text-sm" href="/komentar/smazat/{{com.id}}">
-                                        <small>
-                                             Smazat komentář
-                                        </small>
-                                    </a>
+                                {# Header #}
+                                <div class="d-flex flex-wrap justify-content-between border-bottom">
+                                    <h3 class="h6 fw-bold mb-0">
+                                        {{com.subject}}
+                                    </h3>
+                                    <p class="mb-0">
+                                        Od: 
+                                        {{com.email}}
+                                    </p>
                                 </div>
-                            {% endif %}
-                            
-                        </div>
-                    {% endfor %}
+
+                                {# Content #}
+                                <div class="mt-3">
+                                    {{com.content|raw}}
+                                </div>
+
+                                {# Delete buttons #}
+                                {% if app.user %}
+                                    <div class="text-end">
+                                        <a class="text-danger text-sm" href="/komentar/smazat/{{com.id}}">
+                                            <small>
+                                                Smazat komentář
+                                            </small>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
                 </div>
 
                 {# Comment Form #}

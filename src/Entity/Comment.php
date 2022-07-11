@@ -7,14 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-class Comment
+class Comment 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(
         message: "Pole nesmí být prázdné"
     )]
@@ -26,7 +26,7 @@ class Comment
     )]
     private $subject;
 
-    #[ORM\Column(type: 'string', length: 4000, nullable: true)]
+    #[ORM\Column(type: 'string', length: 4000)]
     #[Assert\NotBlank(
         message: "Pole nesmí být prázdné"
     )]

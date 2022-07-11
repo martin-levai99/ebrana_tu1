@@ -17,25 +17,48 @@ class Post
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3)]
+    #[Assert\NotBlank(
+        message: "Pole nesmí být prázdné"
+    )]
+    #[Assert\Length(
+        min: 3, 
+        max: 255,
+        minMessage: 'Název musí mít alespoň {{ limit }} znaky',
+        maxMessage: 'Název nesmí být delší než {{ limit }} znaků'
+    )]
     private $title;
 
     #[ORM\Column(type: 'string', length: 1000)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3)]
+    #[Assert\NotBlank(
+        message: "Pole nesmí být prázdné"
+    )]
+    #[Assert\Length(
+        min: 3, 
+        max: 1000,
+        minMessage: 'Popisek musí mít alespoň {{ limit }} znaky',
+        maxMessage: 'Popisek nesmí být delší než {{ limit }} znaků'
+    )]
     private $excerpt;
 
     #[ORM\Column(type: 'string', length: 9999)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3)]
+    #[Assert\NotBlank(
+        message: "Pole nesmí být prázdné"
+    )]
+    #[Assert\Length(
+        min: 3, 
+        max: 9999,
+        minMessage: 'Obsah musí mít alespoň {{ limit }} znaky',
+        maxMessage: 'Obsah nesmí být delší než {{ limit }} znaků'
+    )]
     private $content;
 
     #[ORM\Column(type: 'date')]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(
+        message: "Pole nesmí být prázdné"
+    )]
     private $publishDate;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $thumbnail;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'posts')]
@@ -108,7 +131,7 @@ class Post
         return $this->thumbnail;
     }
 
-    public function setThumbnail(string $thumbnail): self
+    public function setThumbnail(?string $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
 

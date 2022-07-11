@@ -18,9 +18,17 @@ class CategoryFormType extends AbstractType
             ->add('title', TextType::class, [
                 "attr" => [
                     "class" => "form-control mb-3"
-                ]
+                ],
+                "label" => "Název", 
+                "required" => true
             ])
-            ->add('description', CKEditorType::class)
+            ->add('description', CKEditorType::class, [
+                "config" => [
+                    "allowedContent" => 'p b i pre code; a[!href]',
+                    "removeButtons" => 'Print,Preview,Templates,Source,Save,NewPage,Cut,Copy,Paste,PasteText,PasteFromWord,Find,Replace '
+                ],
+                "label" => "Obsah"
+            ])
             // ->add('posts')
         ;
     }
