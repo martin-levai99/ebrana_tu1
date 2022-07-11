@@ -29,10 +29,13 @@ class CategoryController extends AbstractController {
 
             $newCategory = $form->getData();
 
+            
             $this->em->persist($newCategory);
             $this->em->flush();
 
-            return $this->redirectToRoute("post_index");
+            return $this->redirectToRoute("category_single", [
+                "id" => $newCategory->getId()
+            ]);
         }
 
         return $this->render('category/create.html.twig', [

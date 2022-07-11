@@ -42,9 +42,9 @@ class PostFormType extends AbstractType
             ])
             ->add('publishDate', DateType::class, [
                 "attr" => [
-                    "class" => " mb-3"
+                    "class" => " mb-3 form-control"
                 ],
-                'format' => 'd. M. y',
+                'widget' => 'single_text',
                 "label" => "Datum publikace",
             ])
             ->add('thumbnail', FileType::class, [

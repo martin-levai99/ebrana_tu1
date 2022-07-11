@@ -24,18 +24,10 @@
         </div>
     </div>
 
-
-    {# Newest main 2 posts #}
-    {{ render(controller(
-        'App\\Controller\\PostController::itemList', 
-        { 'max': 2 }
-    )) }}
-
-
     {# Next 4 newest posts #}
     {{ render(controller(
         'App\\Controller\\PostController::itemList', 
-        { 'max': 100, "offset": 2, "size": "small" }
+        { 'max': 100, "size": "small" }
     )) }}
 
 
