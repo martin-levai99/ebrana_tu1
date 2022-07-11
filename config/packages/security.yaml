@@ -32,8 +32,13 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/blog/novy-clanek, roles: ROLE_USER }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/blog/novy-clanek, roles: ROLE_USER }
+        - { path: ^/blog/upravit-clanek, roles: ROLE_USER }
+        - { path: ^/blog/smazat-clanek, roles: ROLE_USER }
+        - { path: ^/kategorie/nova-kategorie, roles: ROLE_USER }
+        - { path: ^/kategorie/upravit-kategorii, roles: ROLE_USER }
+        - { path: ^/kategorie/smazat-kategorii, roles: ROLE_USER }
+        - { path: ^/komentar/smazat, roles: ROLE_USER }
 
 when@test:
     security:
